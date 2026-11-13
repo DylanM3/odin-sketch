@@ -1,29 +1,35 @@
-// Create a reference to all HTML elements required
+// Grid related references
 const gridContainer = document.getElementById("grid-container");
 const gridInput = document.getElementById("gridInput");
 const gridSizeForm = document.getElementById("gridSizeForm");
 
+// Top button references
 const resetCanvasBtn = document.getElementById("resetCanvasBtn");
 const toggleGridBtn = document.getElementById("toggleGridBtn");
 
+// Bottom button references
 const clickMode = document.getElementById("clickMode");
 const rainbowMode = document.getElementById("rainbowMode");
 
-let gridSize = 10; // Set a default grid size
-let showGrid = true; // Set showGrid to true by default
+// Default values
+let gridSize = 10;
+let showGrid = true;
 
-function createGrid(rowCount, columnCount) {
+// ---------------------------------------------------------------------------------------
+// Create Grid Function
+
+function createGrid(gridSize) {
     // Clear the inner HTML and remove all divs inside the container
     gridContainer.innerHTML = ""
 
     // Create the rowContainers
-    for (let i = 0; i < rowCount; i++) {
+    for (let i = 0; i < gridSize; i++) {
         const row = document.createElement("div");
         row.classList.add("row-container");
         gridContainer.append(row);
 
         // Fill the rowContainers with squares
-        for (let j = 0; j < columnCount; j++) {
+        for (let j = 0; j < gridSize; j++) {
             const column = document.createElement("div");
             column.classList.add("square");
 
@@ -31,20 +37,29 @@ function createGrid(rowCount, columnCount) {
                 column.classList.add("squareBorder");
             }
 
-
+            column.addEventListener("mouseenter", changePixel);
             row.append(column);
         }
     }
 }
+
+// ---------------------------------------------------------------------------------------
+// Change Pixel Function - used in `createGrid`
+
+function changePixel(event) {
+    event.target.style.backgroundColor = "black";
+}
+
+// ---------------------------------------------------------------------------------------
+// Reset Canvas Function
 
 function resetCanvas(rowCount, columnCount) {
     gridContainer.innerHTML = "";
     createGrid(gridSize, gridSize);
 }
 
-function changePixel(event) {
-    event.target.style.backgroundColor = "black";
-}
+// ---------------------------------------------------------------------------------------
+// Toggle Grid Function
 
 function toggleGrid(){
     // Create a reference to the squares present
@@ -58,18 +73,15 @@ function toggleGrid(){
     })
 }
 
-function toggleClickMode(event) {
-    // `.checked` is the same as true for checkboxes
-    if(clickMode.checked) {
-
-    }
-}
+// ---------------------------------------------------------------------------------------
+// Submit Grid Size Function
 
 function submitGridSize(event) {
     // Prevent the page from refreshing and get the grid size input
     event.preventDefault();
     gridSize = Number(gridInput.value);
 
+    // Check grid size boundaries
     if(gridSize > 0 && gridSize <= 100) {
         createGrid(gridSize, gridSize);
         gridSizeForm.reset();
@@ -78,6 +90,11 @@ function submitGridSize(event) {
         alert("Grid size must be between one and one-hundred (inclusive) ");
     }
 }
+
+// ---------------------------------------------------------------------------------------
+// Main Program Loop
+
+
 
 createGrid(gridSize, gridSize);
 gridSizeForm.addEventListener("submit", submitGridSize);
