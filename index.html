@@ -11,15 +11,24 @@
 </head>
 <body>
     <main>
-        <div id="btn-container">
-            <input type=text id="changeGridBtn"></input>
-            <input type="submit"></input>
+        <div id="top-btn-container">
+            <form id="gridSizeForm">
+                <input type="number" placeholder="Grid Size: " id="gridInput">
+                <input type="submit" value="Submit">
+            </form>
+            <div>
+                <button id="toggleGridBtn">Toggle Grid</button>
+                <button id="resetCanvasBtn">Reset Canvas</button>
+            </div>
         </div>
-
         <div id="grid-container">
             <div id="row-container">
 
             </div>
+        </div>
+        <div id="bottom-btn-container">
+            <label><input type="checkbox" id="clickMode">Click Mode</label>
+            <label><input type="checkbox" id="rainbowMode">Rainbow Mode</label>
         </div>
     </main>
 </body>

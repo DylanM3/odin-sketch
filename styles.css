@@ -20,17 +20,36 @@ GRID STYLING
 
 #grid-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
+    height: min(75vh, 85vw);
+    aspect-ratio: 1/1;
+}
+
+.row-container {
+    display: flex;
+    flex: 1 1 0;
 }
 
 .square {
     box-sizing: border-box;
+    flex: 1 1 0;
+}
+
+.squareBorder {
     border: 1px solid black;
-    padding: 50px;
 }
 
 /* -----------
 BUTTON STYLING
  ---------- */
 
+#top-btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#bottom-btn-container {
+    display:flex;
+    gap: 25px;
+}
