@@ -36,7 +36,7 @@ GRID STYLING
     flex: 1 1 0;
 }
 
-.squareBorder {
+.squareBorder, #grid-container {
     border: 1px solid black;
 }
 

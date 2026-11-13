@@ -37,7 +37,7 @@ function createGrid(gridSize) {
                 column.classList.add("squareBorder");
             }
 
-            column.addEventListener("mouseenter", changePixel);
+            updateDrawingMode(column);
             row.append(column);
         }
     }
@@ -47,34 +47,29 @@ function createGrid(gridSize) {
 // Change Pixel Function - used in `createGrid`
 
 function changePixel(event) {
-    event.target.style.backgroundColor = "black";
+    if(rainbowMode.checked) {
+        event.target.style.backgroundColor = generateRandomColor();
+    }
+    else {
+        event.target.style.backgroundColor = "black";
+    }
 }
 
 // ---------------------------------------------------------------------------------------
-// Reset Canvas Function
+// Update Drawing Mode - used in `createGrid` and `toggleClickMode`
 
-function resetCanvas(rowCount, columnCount) {
-    gridContainer.innerHTML = "";
-    createGrid(gridSize, gridSize);
+function updateDrawingMode(square) {
+    if (clickMode.checked) {
+        square.removeEventListener("mouseenter", changePixel);
+        square.addEventListener("click", changePixel);
+    } else {
+        square.removeEventListener("click", changePixel);
+        square.addEventListener("mouseenter", changePixel);
+    }
 }
 
 // ---------------------------------------------------------------------------------------
-// Toggle Grid Function
-
-function toggleGrid(){
-    // Create a reference to the squares present
-    const square = document.querySelectorAll(".square");
-
-    // Flip the state of showGrid
-    showGrid = !showGrid;
-
-    square.forEach(square => {
-      square.classList.toggle("squareBorder");
-    })
-}
-
-// ---------------------------------------------------------------------------------------
-// Submit Grid Size Function
+// TOP BUTTON CONTAINER: Submit Grid Size Function
 
 function submitGridSize(event) {
     // Prevent the page from refreshing and get the grid size input
@@ -83,7 +78,7 @@ function submitGridSize(event) {
 
     // Check grid size boundaries
     if(gridSize > 0 && gridSize <= 100) {
-        createGrid(gridSize, gridSize);
+        createGrid(gridSize);
         gridSizeForm.reset();
     }
     else {
@@ -92,12 +87,47 @@ function submitGridSize(event) {
 }
 
 // ---------------------------------------------------------------------------------------
+// TOP BUTTON CONTAINER: Toggle Grid Function
+
+function toggleGrid(){
+    // Create a reference to the squares present
+    const existingSquares = document.querySelectorAll(".square");
+
+    // Flip the state of showGrid
+    showGrid = !showGrid;
+
+    existingSquares.forEach(square => {
+        square.classList.toggle("squareBorder");
+    })
+}
+
+// ---------------------------------------------------------------------------------------
+// BOTTOM BUTTON CONTAINER: Toggle Click Mode
+
+function toggleClickMode() {
+    const existingSquares = document.querySelectorAll(".square");
+    existingSquares.forEach(square => updateDrawingMode(square));
+}
+
+// ---------------------------------------------------------------------------------------
+// Assists `changePixel` to assist the `Rainbow Mode` checkbox
+
+function generateRandomColor() {
+    // Generate random colors using `Math` lib
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+
+    const rgbColor = `rgb(${r}, ${g}, ${b})`;
+    return rgbColor;
+}
+
+// ---------------------------------------------------------------------------------------
 // Main Program Loop
 
-
-
-createGrid(gridSize, gridSize);
+createGrid(gridSize);
 gridSizeForm.addEventListener("submit", submitGridSize);
-resetCanvasBtn.addEventListener("click", resetCanvas);
+resetCanvasBtn.addEventListener("click", () => createGrid(gridSize)); // Arrow func to reset the grid
 toggleGridBtn.addEventListener("click", toggleGrid);
-clickMode.addEventListener("change", toggleClickMode);
+clickMode.addEventListener("change", toggleClickMode); // Change is the checkboxes `update` variable
+// rainbowMode.addEventListener("change", changePixel); REDUNDANT EVENT LISTENER: accounted for within other functions
