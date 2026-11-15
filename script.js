@@ -22,6 +22,15 @@ function createGrid(gridSize) {
     // Clear the inner HTML and remove all divs inside the container
     gridContainer.innerHTML = ""
 
+    // Grid Validation
+    if(gridSize > 0 && gridSize <= 100) {
+        createGrid(gridSize);
+        gridSizeForm.reset();
+    }
+    else {
+        return alert("Grid size must be between one and one-hundred (inclusive) ");
+    }
+
     // Create the rowContainers
     for (let i = 0; i < gridSize; i++) {
         const row = document.createElement("div");
@@ -71,20 +80,20 @@ function updateDrawingMode(square) {
 // ---------------------------------------------------------------------------------------
 // TOP BUTTON CONTAINER: Submit Grid Size Function
 
-function submitGridSize(event) {
-    // Prevent the page from refreshing and get the grid size input
-    event.preventDefault();
-    gridSize = Number(gridInput.value);
+// function submitGridSize(event) {
+//     // Prevent the page from refreshing and get the grid size input
+//     event.preventDefault();
+//     gridSize = Number(gridInput.value);
 
-    // Check grid size boundaries
-    if(gridSize > 0 && gridSize <= 100) {
-        createGrid(gridSize);
-        gridSizeForm.reset();
-    }
-    else {
-        alert("Grid size must be between one and one-hundred (inclusive) ");
-    }
-}
+//     // Check grid size boundaries
+//     if(gridSize > 0 && gridSize <= 100) {
+//         createGrid(gridSize);
+//         gridSizeForm.reset();
+//     }
+//     else {
+//         alert("Grid size must be between one and one-hundred (inclusive) ");
+//     }
+// }
 
 // ---------------------------------------------------------------------------------------
 // TOP BUTTON CONTAINER: Toggle Grid Function
