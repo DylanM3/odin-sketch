@@ -24,7 +24,8 @@ function createGrid(gridSize) {
 
     // Grid Validation
     if(!Number.isInteger(gridSize) || gridSize <= 0 || gridSize > 100) {
-        return alert("Grid size must be between one and one-hundred (inclusive)");
+        alert("Grid size must be between one and one-hundred (inclusive)");
+        return gridSize = 10;
     }
 
     // Create the rowContainers
