@@ -61,6 +61,7 @@ function changePixel(event) {
     }
 }
 
+
 // ---------------------------------------------------------------------------------------
 // Update Drawing Mode - used in `createGrid` and `toggleClickMode`
 
@@ -82,6 +83,11 @@ function submitGridSize(event) {
     gridSize = Number(gridInput.value);
 
     createGrid(gridSize);
+
+    if (gridSize > 100 || gridSize <= 0 || !Number.isInteger(gridSize)) {
+        gridSize = 10;
+    }
+
     gridSizeForm.reset();
 }
 
