@@ -23,12 +23,8 @@ function createGrid(gridSize) {
     gridContainer.innerHTML = ""
 
     // Grid Validation
-    if(gridSize > 0 && gridSize <= 100) {
-        createGrid(gridSize);
-        gridSizeForm.reset();
-    }
-    else {
-        return alert("Grid size must be between one and one-hundred (inclusive) ");
+    if(!Number.isInteger(gridSize) || gridSize <= 0 || gridSize > 100) {
+        return alert("Grid size must be between one and one-hundred (inclusive)");
     }
 
     // Create the rowContainers
@@ -80,20 +76,13 @@ function updateDrawingMode(square) {
 // ---------------------------------------------------------------------------------------
 // TOP BUTTON CONTAINER: Submit Grid Size Function
 
-// function submitGridSize(event) {
-//     // Prevent the page from refreshing and get the grid size input
-//     event.preventDefault();
-//     gridSize = Number(gridInput.value);
+function submitGridSize(event) {
+    event.preventDefault();
+    gridSize = Number(gridInput.value);
 
-//     // Check grid size boundaries
-//     if(gridSize > 0 && gridSize <= 100) {
-//         createGrid(gridSize);
-//         gridSizeForm.reset();
-//     }
-//     else {
-//         alert("Grid size must be between one and one-hundred (inclusive) ");
-//     }
-// }
+    createGrid(gridSize);
+    gridSizeForm.reset();
+}
 
 // ---------------------------------------------------------------------------------------
 // TOP BUTTON CONTAINER: Toggle Grid Function
