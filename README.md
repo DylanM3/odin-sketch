@@ -9,6 +9,12 @@ Developed as apart of the curriculum for [The Odin Project](https://theodinproje
 - Click Mode: Disable "hover" effect from `mouseenter` and replace it with `click` to provide an old-school Microsoft Paint feeling.
 - Rainbow Mode: Randomise the `rgb()` value of all squares inside of `changePixel()` to achieve a random colour effect.
 
+## Known Bugs:
+- FIXED: 15/11/2026\
+It is possible to obtain a grid size outside of the specified boundaries by accepting the `alert()` with a number inside the `Grid Size` box outside of the defined boundaries and clicking `Reset Canvas` to bypass the validation. This is known to crash the browser when paired with extreme numbers and remove the grid with negative numbers.
+
+- The grid lines appear disabled by default when clicking `Reset Canvas` with a high number in the `Grid Size` input box after accepting the `alert()`. It is suspected this error is due to the `15/11/2026 Patch` however it does not affect any functionalities of the webpage
+
 #
 
 Hosted at [dylanmoore.uk](https://sketch.dylanmoore.uk)  
